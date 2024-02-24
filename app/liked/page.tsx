@@ -1,6 +1,6 @@
 import getLikedSongs from '@/actions/getLikedSongs'
 import Header from '@/components/Header'
-import { getUser } from '@/lib/client/supbase'
+import { getSubscription, getUser } from '@/lib/client/supbase'
 import Image from 'next/image'
 import LikedContent from './components/LikedContent'
 
@@ -8,6 +8,7 @@ export const revalidate = 0
 
 const Liked = async () => {
   const songs = await getLikedSongs()
+  const subscription = await getSubscription()
   const user = await getUser()
   console.log('liked page songs', songs)
   return (
@@ -32,7 +33,7 @@ const Liked = async () => {
           </div>
         </div>
       </Header>
-      <LikedContent songs={songs} user={user} />
+      <LikedContent songs={songs} user={user} subscription={subscription} />
     </div>
   )
 }

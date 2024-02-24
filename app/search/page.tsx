@@ -1,7 +1,7 @@
 import getSongsByTitle from '@/actions/getSongsByTitle'
 import Header from '@/components/Header'
 import SearchInput from '@/components/SearchInput'
-import { getUser } from '@/lib/client/supbase'
+import { getSubscription, getUser } from '@/lib/client/supbase'
 import SearchContent from './components/SearchContent'
 
 interface searchProps {
@@ -15,6 +15,7 @@ export const revalidate = 0
 const Search = async ({ searchParams }: searchProps) => {
   const user = await getUser()
   const songs = await getSongsByTitle(searchParams.title)
+  const subscription = await getSubscription()
   // console.log('search songs', songs)
   return (
     <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
@@ -24,7 +25,7 @@ const Search = async ({ searchParams }: searchProps) => {
           <SearchInput />
         </div>
       </Header>
-      <SearchContent songs={songs} user={user} />
+      <SearchContent songs={songs} user={user} subscription={subscription} />
     </div>
   )
 }

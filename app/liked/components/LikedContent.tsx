@@ -1,6 +1,6 @@
 'use client'
 
-import { Song } from '@/types'
+import { Song, SubscriptionWithPrice } from '@/types'
 import { useRouter } from 'next/navigation'
 import { User } from '@supabase/gotrue-js/src/lib/types'
 import { useEffect } from 'react'
@@ -11,11 +11,16 @@ import useOnPlay from '@/hooks/useOnPlay'
 interface LikedContentProps {
   songs: Song[]
   user: User | null
+  subscription: SubscriptionWithPrice
 }
 
-const LikedContent: React.FC<LikedContentProps> = ({ songs, user }) => {
+const LikedContent: React.FC<LikedContentProps> = ({
+  songs,
+  user,
+  subscription,
+}) => {
   const router = useRouter()
-  const onPlay = useOnPlay(songs, user)
+  const onPlay = useOnPlay(songs, user, subscription)
   useEffect(() => {
     if (!user) {
       router.replace('/')

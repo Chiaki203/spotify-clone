@@ -3,16 +3,21 @@
 import LikeButton from '@/components/LikeButton'
 import MediaItem from '@/components/MediaItem'
 import useOnPlay from '@/hooks/useOnPlay'
-import { Song } from '@/types'
+import { Song, SubscriptionWithPrice } from '@/types'
 import { User } from '@supabase/gotrue-js/src/lib/types'
 
 interface SearchContentProps {
   songs: Song[]
   user: User | null
+  subscription: SubscriptionWithPrice
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({ songs, user }) => {
-  const onPlay = useOnPlay(songs, user)
+const SearchContent: React.FC<SearchContentProps> = ({
+  songs,
+  user,
+  subscription,
+}) => {
+  const onPlay = useOnPlay(songs, user, subscription)
   if (songs.length === 0) {
     return (
       <div className="flex flex-col gap-y-2 w-full px-6 text-neutral-400">
